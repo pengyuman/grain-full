@@ -1,0 +1,40 @@
+.alt {
+    width: 100%;
+    padding: $alt-padding-y $alt-padding-x;
+    margin-bottom: $margin-bottom;
+    position: relative;
+    font-weight: $btn-font-weight;
+    line-height: $btn-line-height;
+    border: $btn-border-width solid transparent;
+    box-shadow: $btn-box-shadow;
+    border-radius: $border-radius;
+    color: $white;
+
+    p,
+    h4 {
+        margin: $p-margin-y $p-margin-x;
+    }
+}
+
+.alt-success {
+    @include alert-style($success);
+}
+
+.alt-default {
+    @include alert-style($primary);
+}
+
+.alt-danger {
+    @include alert-style($danger);
+}
+
+.alt-warning {
+    @include alert-style($warning);
+}
+
+.alt-close {
+    position: absolute;
+    top: $alt-close-top;
+    right: $alt-close-right;
+    cursor: pointer;
+}

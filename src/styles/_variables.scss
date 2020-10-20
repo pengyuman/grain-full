@@ -298,10 +298,22 @@ $progress-border-radius: $border-radius !default;
 $progress-bar-color: $white !default;
 $progress-bar-transition: width .6s ease !default;
 
+// alert 弹窗的padding
+$alt-padding-x:.9rem;
+$alt-padding-y:.8rem;
+$margin-bottom:1rem;
+
+$alt-close-top:.5rem;
+$alt-close-right:0.9rem;
+
+// padding 为0
+$p-margin-x:0;
+$p-margin-y:0;
+
 // margin-right
 .flex {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
 }
