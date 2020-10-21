@@ -1,6 +1,9 @@
 import React from 'react';
 import Button, { ButtonType, ButtonSize } from './components/Button/button'
 import Alert, { AlertType } from './components/Alert/alert'
+import Menu from './components/Menu/menu'
+import MenuItem from './components/Menu/menuItem'
+import SubMenu from './components/Menu/subMenu'
 function App() {
     return (
         <div className="App">
@@ -22,6 +25,29 @@ function App() {
                 <Alert message="Danger 提示内容" title="标题" altType={AlertType.Danger}></Alert>
                 <Alert message="Warning 提示内容" title="标题" altType={AlertType.Warning}></Alert>
                 <Alert message="没有关闭按钮" altType={AlertType.Default} closeText="关闭"></Alert>
+            </div>
+            <h4>Menu 组件：</h4>
+            <div>
+                <Menu mode="vertical" defaultOpenSubMenus={['2']}>
+                    <MenuItem > 菜单一</MenuItem>
+                    <MenuItem disabled> 菜单二</MenuItem>
+                    <SubMenu title="菜单二">
+                        <MenuItem > 菜单2.1</MenuItem>
+                        <MenuItem > 菜单2.2</MenuItem>
+                    </SubMenu>
+                    <MenuItem > 菜单三</MenuItem>
+                </Menu>
+                <div className="margin-top"></div>
+                <Menu >
+                    <MenuItem > 菜单一</MenuItem>
+                    <SubMenu title="菜单二">
+                        <MenuItem > 菜单2.1</MenuItem>
+                        <MenuItem > 菜单2.2</MenuItem>
+                    </SubMenu>
+                    <MenuItem disabled> 菜单二</MenuItem>
+                    <MenuItem > 菜单三</MenuItem>
+                </Menu>
+                <div className="margin-top"></div>
             </div>
         </div>
     );
