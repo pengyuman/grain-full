@@ -1,4 +1,4 @@
-import React, { useContext, FunctionComponentElement, useState } from 'react'
+import React, { useContext, FunctionComponentElement, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menuItem'
@@ -16,17 +16,40 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
     // 如果是竖的菜单，
     const isOpend = (index && context.mode === 'vertical') ? openedSubMenus.includes(index) : false
     const [menuOpen, setOpen] = useState(isOpend)
-    const classes = classNames('menu-item submenu-item', className, {
+    const [mouseEnter, setMouseEnter] = useState<string>('')
+    // 鼠标划入的时候的类名
+
+    // 鼠标划出删除类名
+    // 鼠标选中的类名 is-active
+    console.log('index', context.index, index)
+    const classes = classNames('menu-item submenu-item ', className, {
         'is-active': context.index === index
     })
     const handelClick = (e: React.MouseEvent) => {
         e.preventDefault()
         setOpen(!menuOpen)
     }
+    useEffect(() => {
+        console.log('数据发生改变', context, index, context.index.substring(1, context.index.length))
+        // if (context.index.substring(1, context.index.length)){
+        //     console.log('')
+        // }
+    }, [context.index])
     let timer: any
-    const handelMouse = (e: React.MouseEvent, toggle: boolean) => {
+    const handelMouseEnter = (e: React.MouseEvent, toggle: boolean) => {
+        console.log('鼠标划入')
         clearTimeout(timer)
         e.preventDefault()
+        setMouseEnter('menu-hover')
+        timer = setTimeout(() => {
+            setOpen(toggle)
+        }, 300)
+    }
+    const handelMouseLeave = (e: React.MouseEvent, toggle: boolean) => {
+        console.log('鼠标划出')
+        clearTimeout(timer)
+        e.preventDefault()
+        setMouseEnter('')
         timer = setTimeout(() => {
             setOpen(toggle)
         }, 300)
@@ -35,9 +58,10 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
         onClick: handelClick
     } : {}
     const hoverEvents = context.mode !== 'vertical' ? {
-        onMouseEnter: (e: React.MouseEvent) => { handelMouse(e, true) },
-        onMouseLeave: (e: React.MouseEvent) => { handelMouse(e, false) }
+        onMouseEnter: (e: React.MouseEvent) => { handelMouseEnter(e, true) },
+        onMouseLeave: (e: React.MouseEvent) => { handelMouseLeave(e, false) }
     } : {}
+
     const renderChildren = () => {
         const subMenuClasses = classNames('full-submenu', {
             'menu-opened': menuOpen
@@ -51,14 +75,14 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
             }
         })
         return (
-            <ul className={subMenuClasses}>
+            <ul className={`${subMenuClasses}`} onMouseLeave={hoverEvents.onMouseLeave}>
                 {childrenComponent}
             </ul>
         )
     }
     return (
-        <li key={index} className={classes} {...hoverEvents}>
-            <div className="submenu-title" {...clickEvents}>
+        <li key={index} className={`${classes}`} onMouseEnter={hoverEvents.onMouseEnter}>
+            <div className={`submenu-title`} {...clickEvents}>
                 {title}
             </div>
             {renderChildren()}

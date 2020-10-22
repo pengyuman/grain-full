@@ -28,7 +28,7 @@ function App() {
             </div>
             <h4>Menu 组件：</h4>
             <div>
-                <Menu mode="vertical" defaultOpenSubMenus={['2']}>
+                <Menu>
                     <MenuItem > 菜单一</MenuItem>
                     <MenuItem disabled> 菜单二</MenuItem>
                     <SubMenu title="菜单二">
@@ -38,14 +38,17 @@ function App() {
                     <MenuItem > 菜单三</MenuItem>
                 </Menu>
                 <div className="margin-top"></div>
-                <Menu >
+                <Menu mode="vertical" defaultOpenSubMenus={['1']} className="menu-width">
                     <MenuItem > 菜单一</MenuItem>
                     <SubMenu title="菜单二">
                         <MenuItem > 菜单2.1</MenuItem>
                         <MenuItem > 菜单2.2</MenuItem>
                     </SubMenu>
-                    <MenuItem disabled> 菜单二</MenuItem>
-                    <MenuItem > 菜单三</MenuItem>
+                    <MenuItem disabled> 菜单三</MenuItem>
+                    <SubMenu title="菜单四">
+                        <MenuItem > 菜单3.1</MenuItem>
+                        <MenuItem > 菜单3.2</MenuItem>
+                    </SubMenu>
                 </Menu>
                 <div className="margin-top"></div>
             </div>

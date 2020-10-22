@@ -21,6 +21,7 @@ interface IMenuContext {
     onSelect?: SelectCallBack;
     mode?: MenuMdoe;
     defaultOpenSubMenus?: string[];
+
 }
 export const MenuContext = createContext<IMenuContext>({ index: '0' })
 const Menu: React.FC<MenuPoros> = (props) => {
