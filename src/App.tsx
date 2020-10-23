@@ -36,6 +36,10 @@ function App() {
                         <MenuItem > 菜单2.2</MenuItem>
                     </SubMenu>
                     <MenuItem > 菜单三</MenuItem>
+                    <SubMenu title="菜单四">
+                        <MenuItem > 菜单4.1</MenuItem>
+                        <MenuItem > 菜单4.2</MenuItem>
+                    </SubMenu>
                 </Menu>
                 <div className="margin-top"></div>
                 <Menu mode="vertical" defaultOpenSubMenus={['1']} className="menu-width">

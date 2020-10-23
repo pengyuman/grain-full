@@ -17,27 +17,21 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
     const isOpend = (index && context.mode === 'vertical') ? openedSubMenus.includes(index) : false
     const [menuOpen, setOpen] = useState(isOpend)
     const [mouseEnter, setMouseEnter] = useState<string>('')
-    // 鼠标划入的时候的类名
-
-    // 鼠标划出删除类名
-    // 鼠标选中的类名 is-active
-    console.log('index', context.index, index)
-    const classes = classNames('menu-item submenu-item ', className, {
-        'is-active': context.index === index
-    })
+    // 选中之后的title的class类名
+    const [selected,setSelected] = useState<string>('')
+    const classes = classNames('menu-item submenu-item ', className)
     const handelClick = (e: React.MouseEvent) => {
         e.preventDefault()
         setOpen(!menuOpen)
     }
     useEffect(() => {
-        console.log('数据发生改变', context, index, context.index.substring(1, context.index.length))
-        // if (context.index.substring(1, context.index.length)){
-        //     console.log('')
-        // }
+      // 被选中之后的class类名
+      let i= context.index
+      let subIndex=i.substring(0,1)
+      subIndex===index?setSelected('sub-selected') : setSelected('')
     }, [context.index])
     let timer: any
     const handelMouseEnter = (e: React.MouseEvent, toggle: boolean) => {
-        console.log('鼠标划入')
         clearTimeout(timer)
         e.preventDefault()
         setMouseEnter('menu-hover')
@@ -46,7 +40,6 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
         }, 300)
     }
     const handelMouseLeave = (e: React.MouseEvent, toggle: boolean) => {
-        console.log('鼠标划出')
         clearTimeout(timer)
         e.preventDefault()
         setMouseEnter('')
@@ -75,17 +68,19 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
             }
         })
         return (
-            <ul className={`${subMenuClasses}`} onMouseLeave={hoverEvents.onMouseLeave}>
+            <ul className={`${subMenuClasses} ${mouseEnter}`} onMouseLeave={hoverEvents.onMouseLeave}>
                 {childrenComponent}
             </ul>
         )
     }
     return (
-        <li key={index} className={`${classes}`} onMouseEnter={hoverEvents.onMouseEnter}>
-            <div className={`submenu-title`} {...clickEvents}>
+        <li key={index} onMouseEnter={hoverEvents.onMouseEnter} >
+          <div className={`sub-menu ${selected}`}>
+            <div className={`submenu-title ${classes} `} {...clickEvents}>
                 {title}
             </div>
             {renderChildren()}
+          </div>
         </li>
     )
 }
