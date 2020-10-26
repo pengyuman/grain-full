@@ -1,9 +1,14 @@
 import React from 'react';
+// 引入fortawesome库
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import Button, { ButtonType, ButtonSize } from './components/Button/button'
 import Alert, { AlertType } from './components/Alert/alert'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
+import Icon from './components/Icon/icon'
+library.add(fas)
 function App() {
     return (
         <div className="App">
@@ -55,6 +60,10 @@ function App() {
                     </SubMenu>
                 </Menu>
                 <div className="margin-top"></div>
+            </div>
+            <h4>Icon 组件：</h4>
+            <div>
+                <Icon icon="comment" theme="primary" size="5x" />
             </div>
         </div>
     );
