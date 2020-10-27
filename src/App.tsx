@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 // 引入fortawesome库
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import Button, { ButtonType, ButtonSize } from './components/Button/button'
+import { Button, ButtonType, ButtonSize } from './components/Button/button'
 import Alert, { AlertType } from './components/Alert/alert'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
 import Icon from './components/Icon/icon'
+import Transition from './components/Transition/transition'
 library.add(fas)
 function App() {
+    const [btnShow, setBtnShow] = useState<boolean>(false)
     return (
         <div className="App">
             <h4>button组件:</h4>
@@ -25,11 +27,11 @@ function App() {
             </div>
             <h4>alert组件：</h4>
             <div className="flex">
-                <Alert message="default 提示内容" altType={AlertType.Default}></Alert>
-                <Alert message="success 提示内容" title="标题" altType={AlertType.Success}></Alert>
-                <Alert message="Danger 提示内容" title="标题" altType={AlertType.Danger}></Alert>
+                <Alert message="default 提示内容" altType={AlertType.Default} closeText={<Icon icon="window-close" size="1x" />}></Alert>
+                <Alert message="success 提示内容" title="标题" altType={AlertType.Success} closeText={<Icon icon="times-circle" size="1x" />}></Alert>
+                <Alert message="Danger 提示内容" title="标题" altType={AlertType.Danger} closeText="关闭"></Alert>
                 <Alert message="Warning 提示内容" title="标题" altType={AlertType.Warning}></Alert>
-                <Alert message="没有关闭按钮" altType={AlertType.Default} closeText="关闭"></Alert>
+                <Alert message="没有关闭按钮" altType={AlertType.Default} closeText={<Icon icon="times" size="1x" />}></Alert>
             </div>
             <h4>Menu 组件：</h4>
             <div>
@@ -62,9 +64,38 @@ function App() {
                 <div className="margin-top"></div>
             </div>
             <h4>Icon 组件：</h4>
-            <div>
-                <Icon icon="comment" theme="primary" size="5x" />
+            <div className="flex">
+                <Icon icon="comment" theme="success" size="2x" />
+                <Icon icon="angry" theme="danger" size="2x" />
+                <Icon icon="bicycle" theme="primary" size="2x" />
+                <Icon icon="battery-three-quarters" theme="secondary" size="2x" />
+                <Icon icon="cat" theme="warning" size="2x" />
+                <Icon icon="feather" theme="info" size="2x" />
+                <Icon icon="faucet" theme="light" size="2x" />
+                <Icon icon="heart" theme="danger" size="2x" />
+                <Icon icon="times" size="2x" />
             </div>
+            <h4>Transition 组件：</h4>
+            <div>
+                <Button btnType={ButtonType.Primary} onClick={() => { setBtnShow(!btnShow) }}>点击动画</Button>
+                <h4>  </h4>
+                <Transition
+                    in={btnShow}
+                    timeout={300}
+                    animation="zoom-in-top"
+                >
+                    <div>这是一段超级超级长的话</div>
+                </Transition>
+                <Transition
+                    in={btnShow}
+                    timeout={300}
+                    animation="zoom-in-bottom"
+                    wrapper
+                >
+                    <Button btnType={ButtonType.Default}>按钮出来</Button>
+                </Transition>
+            </div>
+            <h4>tab 组件：</h4>
         </div>
     );
 }

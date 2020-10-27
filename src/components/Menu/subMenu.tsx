@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menuItem'
 import Icon from '../Icon/icon'
+import Transition from '../Transition/transition'
 export interface SubMenuProps {
     index?: string;
     title: string;
@@ -33,7 +34,7 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
         let i = context.index
         let subIndex = i.substring(0, 1)
         subIndex === index ? setSelected('sub-selected') : setSelected('')
-    }, [context.index])
+    }, [context.index, index])
     let timer: any
     const handelMouseEnter = (e: React.MouseEvent, toggle: boolean) => {
         clearTimeout(timer)
@@ -73,9 +74,16 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
             }
         })
         return (
-            <ul className={`${subMenuClasses} ${mouseEnter}`} onMouseLeave={hoverEvents.onMouseLeave}>
-                {childrenComponent}
-            </ul>
+            <Transition
+                in={menuOpen}
+                timeout={300}
+                animation="zoom-in-top"
+                wrapper
+            >
+                <ul className={`${subMenuClasses} ${mouseEnter}`} onMouseLeave={hoverEvents.onMouseLeave}>
+                    {childrenComponent}
+                </ul>
+            </Transition>
         )
     }
     return (

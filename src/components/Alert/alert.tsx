@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
+import Transition from '../Transition/transition'
+import Icon from '../Icon/icon'
 // alert 类型
 export enum AlertType {
     Success = 'success',
@@ -30,22 +32,28 @@ const Alert: React.FC<BaseAlertProps> = (props) => {
         [`alt-${altType}`]: altType
     })
     // 点击关闭按钮
-    const [isCloseAlert, setIsCloseAlert] = useState<boolean>(false)
+    const [isCloseAlert, setIsCloseAlert] = useState<boolean>(true)
     return (
         <>
-            {!isCloseAlert ? <div className={classes}>
-                {closable ? (
-                    <span className="alt-close" onClick={() => { setIsCloseAlert(true) }}>{closeText}</span>
-                ) : null}
-                <h4 className="alt-title">{title}</h4>
-                <p className="alt-message">{message}</p>
-            </div> : null}
+            <Transition
+                in={isCloseAlert}
+                timeout={300}
+                animation="zoom-in-top"
+            >
+                <div className={classes}>
+                    {closable ? (
+                        <span className="alt-close" onClick={() => { setIsCloseAlert(false) }}>{closeText}</span>
+                    ) : null}
+                    <h4 className="alt-title">{title}</h4>
+                    <p className="alt-message">{message}</p>
+                </div>
+            </Transition>
         </>
     )
 }
 Alert.defaultProps = {
     altType: AlertType.Default,
     closable: true,
-    closeText: 'x'
+    closeText: <Icon icon="times" size="1x" />
 }
 export default Alert
